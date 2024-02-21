@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Drive Management System</title>
+<style>
+    body {
+        font-family: Roboto, sans-serif;
+        margin: 20px;
+        color: #333;
+    }
+
+    h2 {
+        margin: 10px 0;
+        color: #222;
+        font-size: 1.5em;
+    }
+
+    form {
+        background-color: #f5f5f5;
+        border: 1px solid #ddd;
+        padding: 20px;
+        border-radius: 4px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    input[type="text"] {
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 8px;
+    }
+
+    input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.2s ease-in-out;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        margin-top: 20px;
+    }
+
+    th, td {
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f5f5f5;
+    }
+
+    tr:hover {
+        background-color: #ededed;
+    }
+
+    table#error {
+        color: red;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+    /* Media queries for responsive adjustments */
+    @media only screen and (max-width: 768px) {
+        form {
+            flex-direction: column;
+        }
+        table {
+            font-size: 0.8rem;
+        }
+    }
+</style>
+</head>
+<<body>
+    <h2>Drive Management System</h2>
+    <form id="driveForm">
+        <label for="driveName">Drive Name:</label>
+        <input type="text" id="driveName" name="driveName" required><br><br>
+        <label for="vehicleNumber">Vehicle Number:</label>
+        <input type="text" id="vehicleNumber" name="vehicleNumber" required><br><br>
+        <input type="submit" value="Submit">
+    </form>
+    <br>
+    <h2>Drive Information</h2>
+    <h3>Table 1: Drive Information</h3>
+    <table id="driveTable">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Drive Name</th>
+                <th>Vehicle Number</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data will be added dynamically here -->
+        </tbody>
+    </table>
+
+    <script>
+        var rowIndex = 1;
+
+        document.getElementById("driveForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            var driveName = document.getElementById("driveName").value;
+            var vehicleNumber = document.getElementById("vehicleNumber").value;
+            addDriveToTable(rowIndex++, driveName, vehicleNumber);
+            document.getElementById("driveForm").reset();
+        });
+
+        function addDriveToTable(index, driveName, vehicleNumber) {
+            var table = document.getElementById("driveTable").getElementsByTagName('tbody')[0];
+            var newRow = table.insertRow(table.rows.length);
+            var cell1 = newRow.insertCell(0);
+            var cell2 = newRow.insertCell(1);
+            var cell3 = newRow.insertCell(2);
+            cell1.innerHTML = index;
+            cell2.innerHTML = driveName;
+            cell3.innerHTML = vehicleNumber;
+        }
+    </script>
+</body>
+</html>
