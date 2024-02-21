@@ -1,13 +1,12 @@
 package main
 
 import (
-    "database/sql"
-    "fmt"
-    "log"
-    "net/http"
+	"database/sql"
+	"log"
+	"net/http"
 
-    "github.com/gin-gonic/gin"
-    _ "github.com/go-sql-driver/mysql"
+	"github.com/gin-gonic/gin"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 // Drive struct represents the data model for a drive
@@ -21,7 +20,7 @@ var db *sql.DB
 func main() {
     // Connect to the database
     var err error
-    db, err = sql.Open("mysql", "username:password@tcp(127.0.0.1:3306)/dbname")
+    db, err = sql.Open("mysql", "######################")
     if err != nil {
         log.Fatal(err)
     }
