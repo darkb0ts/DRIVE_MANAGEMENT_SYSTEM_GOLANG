@@ -34,7 +34,7 @@
     input[type="text"] {
         border: 1px solid #ccc;
         border-radius: 4px;
-        padding: 8px;
+        padding: 8px 50px 7px;
     }
 
     input[type="submit"] {
@@ -83,7 +83,11 @@
         font-weight: bold;
         margin-top: 10px;
     }
-
+    .flexBox{
+        display:flex;
+        justify-content: space-around;
+        align-items:center;
+    }
     /* Media queries for responsive adjustments */
     @media only screen and (max-width: 768px) {
         form {
@@ -95,14 +99,20 @@
     }
 </style>
 </head>
-<<body>
+<body>
     <h2>Drive Management System</h2>
     <form id="driveForm">
-        <label for="driveName">Drive Name:</label>
+        <div class="flexBox">
+        <div><label for="driveName">Drive Name:</label>
         <input type="text" id="driveName" name="driveName" required><br><br>
+        </div>
+        <div>
         <label for="vehicleNumber">Vehicle Number:</label>
         <input type="text" id="vehicleNumber" name="vehicleNumber" required><br><br>
+        </div>
         <input type="submit" value="Submit">
+        
+    </div>
     </form>
     <br>
     <h2>Drive Information</h2>
