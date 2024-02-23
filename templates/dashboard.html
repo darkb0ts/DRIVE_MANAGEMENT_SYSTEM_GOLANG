@@ -51,6 +51,37 @@
         background-color: #45a049;
     }
 
+    .edit-button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.2s ease-in-out;
+    }
+
+    .edit-button:hover {
+        background-color: #fff;
+        color:#000;
+    }
+
+    .delete-button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.2s ease-in-out;
+        margin-right: 10px;
+    }
+
+    .delete-button:hover {
+        
+        background-color: red;
+    }
+
     table {
         border-collapse: collapse;
         width: 100%;
@@ -97,36 +128,73 @@
             font-size: 0.8rem;
         }
     }
+    .newclass {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+        margin: 20px;
+        background-color: #f9f9f9;
+    }
+    
+    .newclass h3 {
+        color: #333;
+        margin-bottom: 10px;
+    }
+    
+    .newclass table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    
+    .newclass th, .newclass td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: left;
+    }
+    
+    .newclass th {
+        background-color: #f2f2f2;
+    }
 </style>
 </head>
 <body>
     <h2>Drive Management System</h2>
     <form id="driveForm">
         <div class="flexBox">
-        <div><label for="driveName">Drive Name:</label>
-        <input type="text" id="driveName" name="driveName" required><br><br>
+            <div>
+                <label for="driveName">Drive Name:</label>
+                <input type="text" id="driveName" name="driveName" required><br><br>
+            </div>
+            <div>
+                <label for="vehicleNumber">Vehicle Number:</label>
+                <input type="text" id="vehicleNumber" name="vehicleNumber" required><br><br>
+            </div>
+            <div>
+                <label for="Vehicle Type">Vehicle Type:</label>
+                <input type="text" id="Vehicletype" name="Vehicletype" required><br><br>
+            </div>
+            <div>
+                <label for="departureDate">Departure Date:</label>
+                <input type="date" id="departureDate" name="departureDate" required><br><br>
+            </div>
+            <input type="submit" value="Submit">
         </div>
-        <div>
-        <label for="vehicleNumber">Vehicle Number:</label>
-        <input type="text" id="vehicleNumber" name="vehicleNumber" required><br><br>
-        </div>
-        <input type="submit" value="Submit">
-        
-    </div>
     </form>
-    <br>
-    <h2>Drive Information</h2>
-    <h3>Table 1: Drive Information</h3>
-    <table id="driveTable">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Drive Name</th>
-                <th>Vehicle Number</th>
-            </tr>
-        </thead>
+    <div class="newclass">
+        <h3>Drive Information</h3>
+        <table id="driveTable">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Drive Name</th>
+                    <th>Vehicle Number</th>
+                    <th>Vehicle Type</th>
+                    <th>Departure Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+    </div >
         <tbody>
-            <!-- Data will be added dynamically here -->
         </tbody>
     </table>
 
@@ -137,19 +205,58 @@
             event.preventDefault();
             var driveName = document.getElementById("driveName").value;
             var vehicleNumber = document.getElementById("vehicleNumber").value;
-            addDriveToTable(rowIndex++, driveName, vehicleNumber);
+            var vehilceType = document.getElementById("Vehicletype").value;
+            var datesend = document.getElementById("departureDate").value;
+            console.log(vehilceType,datesend);
+            addDriveToTable(rowIndex++, driveName, vehicleNumber,vehilceType,datesend);
             document.getElementById("driveForm").reset();
         });
 
-        function addDriveToTable(index, driveName, vehicleNumber) {
+        function addDriveToTable(index, driveName, vehicleNumber,vehilceType,datesend) {
             var table = document.getElementById("driveTable").getElementsByTagName('tbody')[0];
             var newRow = table.insertRow(table.rows.length);
             var cell1 = newRow.insertCell(0);
             var cell2 = newRow.insertCell(1);
             var cell3 = newRow.insertCell(2);
+            var cell4 = newRow.insertCell(3);
+            var cell5 = newRow.insertCell(4);
+            var cell6 = newRow.insertCell(5);
             cell1.innerHTML = index;
             cell2.innerHTML = driveName;
             cell3.innerHTML = vehicleNumber;
+            cell4.innerHTML = vehilceType;
+            cell5.innerHTML = datesend ;
+            
+            var deleteButton = document.createElement("button");
+            deleteButton.innerHTML = "Delete";
+            deleteButton.classList.add("delete-button");
+            deleteButton.addEventListener("click", function() {
+                deleteRow(newRow);
+            });
+            cell6.appendChild(deleteButton);
+
+            var editButton = document.createElement("button");
+            editButton.innerHTML = "Edit";
+            editButton.classList.add("edit-button");
+            editButton.addEventListener("click", function() {
+                editRow(newRow);
+            });
+            cell6.appendChild(editButton);
+        }
+
+        function deleteRow(row) {
+            var table = document.getElementById("driveTable").getElementsByTagName('tbody')[0];
+            var rowIndex = row.rowIndex;
+            table.deleteRow(rowIndex);
+        }
+
+        function editRow(row) {
+            var cells = row.cells;
+            var driveName = cells[1].innerHTML;
+            var vehicleNumber = cells[2].innerHTML;
+            document.getElementById("driveName").value = driveName;
+            document.getElementById("vehicleNumber").value = vehicleNumber;
+            deleteRow(row);
         }
     </script>
 </body>
